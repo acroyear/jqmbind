@@ -88,8 +88,6 @@
       this._attachment2 = new PathObserver(obj, path);
       options = options || {defaultValue : {key: '', value : ''}};
       var wdf = function(newValue, oldValue) {
-        // console.log(that, "path changed", newValue);
-//        this.element.prop('checked', newValue);
         newValue = newValue || [];
         
         var e = this.element;
@@ -103,7 +101,6 @@
             text: options.value ? value[options.value] : value
           }));
         });
-        console.log(this.element);
         this.element.selectmenu("refresh");
         if (theCB) cb(this.element);
       }.bind(this);
@@ -131,7 +128,6 @@
       this._attachment = new PathObserver(obj, path);
       var theCB = cb;
       var wdf = function(newValue, oldValue) {
-//        console.log(this, "list path changed", newValue, this.element);
         this.element.contents().remove();
         newValue = newValue || [];
         var c = "";
@@ -159,11 +155,10 @@
         this._attachment.close();
       }
       this._attachment = new PathObserver(obj, path);
-      var that = this;
       var wdf = function(newValue, oldValue) {
         if (this.is('img')) this.attr('src', newValue);
         else {
-          if (formatter) formatter(newValue, that);
+          if (formatter) formatter(newValue, this);
           else this.html(newValue);
         }
       }.bind(this);
