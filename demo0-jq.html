@@ -83,6 +83,8 @@
       <p>Demo 0-2 img src.  This image <span style="background-color: green;"><img id="item3"/></span> (which started empty) will toggle black-white alternating if you click <a href="#" id="item3trigger">this link</a>. Again, by the initial bind, it automatically gets its first value.
       <p>Demo 0-2 Source</p>
       <pre>
+          &lt;span style="background-color: green;"&gt;&lt;img id="item3"/&gt;&lt;/span&gt; <i>(note the lack of an initial src)</i>
+          
           $('#item3').attach(model, 'img');
           function toggleImgText() {
               model.img = model.img.indexOf('black') > -1 ? model.img.replace('black','white') : model.img.replace('white','black');
