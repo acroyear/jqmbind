@@ -17,7 +17,8 @@
   // the model being manipulated
   var model = {
       item1: 'brackets',
-      item2: 'brackets'
+      item2: 'brackets',
+      img: 'themes/images/icons-png/action-black.png' // toggle swaps black with white and back again
   };
   var item2state = '';
 
@@ -29,6 +30,10 @@
   }
   function extendItem2Text() {
       model.item2 = model.item2 + " x";
+      Platform.performMicrotaskCheckpoint();
+  }
+  function toggleImgText() {
+      model.img = model.img.indexOf('black') > -1 ? model.img.replace('black','white') : model.img.replace('white','black');
       Platform.performMicrotaskCheckpoint();
   }
 
@@ -44,6 +49,9 @@
           var h = "<" + item2state + ">" + v + "<\/" + item2state + ">";
           $elem.html(h);
       });
+
+      $('#item3trigger').click(toggleImgText);
+      $('#item3').attach(model, 'img');
   });
   </script>
 </head>
@@ -58,23 +66,36 @@
       <p>This demonstrates JQuery DOM elements, including images, to object properties using Polymer's Observe-js library.</p>
       <p>Demo 0-0 basic text.  The text between the [<span id="item1">JUST brackets SHOULD BE HERE</span>] will expand if you click <a href="#" id="item1trigger">this link</a>.</p>
       <p>Demo 0-0 Source</p>
-      <pre>$('#item1').attach(model, 'item1');</pre>
+      <pre>
+      $('#item1').attach(model, 'item1');
+      </pre>
       <hr/>
       <p>Demo 0-1 formatted text.  The text between the [<span id="item2">JUST brackets SHOULD BE HERE AND BOLD</span>] will expand and change with alternating styles if you click <a href="#" id="item2trigger">this link</a>. And note the binding function already ran once to be in sync with the model, making it italic.</p>
       <p>Demo 0-1 Source</p>
       <pre>
-      var item2state = '';
-      $('#item2').attach(model, 'item2', function(v, $elem) {
-          item2state = item2state === 'i' ? 'b' : 'i'; // toggle between italic and bold
-          var h = "&lt;" + item2state + "&gt;" + v + "&lt;\/" + item2state + "&gt;";
-          $elem.html(h);
-      });</pre>
+       var item2state = '';
+       $('#item2').attach(model, 'item2', function(v, $elem) {
+           item2state = item2state === 'i' ? 'b' : 'i'; // toggle between italic and bold
+           var h = "&lt;" + item2state + "&gt;" + v + "&lt;\/" + item2state + "&gt;";
+           $elem.html(h);
+       });</pre>
       <hr/>
-      <p>The original model</p><pre>
+      <p>Demo 0-2 img src.  This image <span style="background-color: green;"><img id="item3"/></span> (which started empty) will toggle black-white alternating if you click <a href="#" id="item3trigger">this link</a>. Again, by the initial bind, it automatically gets its first value.
+      <p>Demo 0-2 Source</p>
+      <pre>
+          $('#item3').attach(model, 'img');
+          function toggleImgText() {
+              model.img = model.img.indexOf('black') > -1 ? model.img.replace('black','white') : model.img.replace('white','black');
+              Platform.performMicrotaskCheckpoint();
+          }
+      </pre>
+      <hr/>
+       <p>The original model</p><pre>
       // the model being manipulated
       var model = {
           item1: 'brackets',
-          item2: 'brackets'
+          item2: 'brackets',
+          img: 'themes/images/icons-png/action-black.png' // toggle swaps black with white and back again
       };
       </pre>
       <p>The attach script</p>
