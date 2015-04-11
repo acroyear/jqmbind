@@ -42,7 +42,7 @@
   };
 
   var widgettypes = [
-      "textinput", "flipswitch", "rangeslider", "slider", "selectmenu"
+      "textinput", "flipswitch", "slider", "selectmenu"
   ];
   widgettypes.forEach(function(w) {
     addAttachmentHash(w);

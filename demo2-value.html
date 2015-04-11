@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <title>jQuery Mobile Binding: Demo 0 (DOM and Image src)</title>
+  <title>jQuery Mobile Binding: Demo 2 (value-based widgets)</title>
   <link rel="stylesheet" href="themes/jqmbind-demo.min.css" type="text/css" />
   <link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" type="text/css" />
   <link rel="stylesheet" href="themes/jquery.mobile.structure-1.4.5.min.css" type="text/css" />
@@ -15,7 +15,10 @@
   <script src="frameworks/jqmbind.js" type="text/javascript"></script>
   <script>
   var model = {
-      item1: "apatasaurus"
+      item1: "apatasaurus",
+      item2: 5,
+      item3: 55,
+      item4: 'arrive'
   };
   var options = 'apatasaurus brachiosaurus corynthisaurus dienanichus einiosaurus'.split(" ");
   var idx = 0;
@@ -23,6 +26,18 @@
     idx++;
     if (idx === options.length) idx = 0;
     model.item1 = options[idx];
+    Platform.performMicrotaskCheckpoint();
+  }
+  
+  function item2trigger() {
+    model.item2 += 5;
+    if (model.item2 > 45) model.item2 = 0;
+    model.item3 = model.item2 + 50;
+    Platform.performMicrotaskCheckpoint();
+  }
+
+  function item4trigger() {
+    model.item4 = model.item4 === 'leave' ? 'arrive' : 'leave';
     Platform.performMicrotaskCheckpoint();
   }
 
@@ -34,13 +49,24 @@
     $('#item1trigger').click(item1trigger);
     $('#item1').textinput('attach', model, 'item1');
     $('#item2').selectmenu('attach', model, 'item1');
+
+    $('#item2trigger').click(item2trigger);
+    $('#item3').textinput('attach', model, 'item2');
+    $('#item4').textinput('attach', model, 'item3');
+    $('#item5').slider('attach', model, 'item2');
+    $('#item6').slider('attach', model, 'item3');
+
+    $('#item4trigger').click(item4trigger);
+    $('#item7').textinput('attach', model, 'item4');
+    $('#item8').flipswitch('attach', model, 'item4');
+
   });
   </script>
   </head>
   <body>
   <div data-role="page" data-theme="a">
     <div data-role="header" data-position="inline">
-      <h1>JQMBind Demo - DOM and Image</h1>
+      <h1>jQuery Mobile Binding: Demo 2 (value-based widgets)</h1>
     </div>
 
     <div data-role="content" data-theme="a">
@@ -50,7 +76,25 @@
       </p>
       <label for="item1">Text input 1:</label><input type="text" name="item1" id="item1" value=""></input>
       <label for="item2" class="select">Shipping method:</label><select name="item2" id="item2"></select>
-  </div>
+      <hr/>
+      <p>
+        Demo 2-2 value-based widgets. The widgets below the will change if you click <a href="#" id="item2trigger">this link</a>.
+      </p>      
+      <label for="item3">Text input 2:</label><input type="text" name="item3" id="item3" value=""></input>
+      <label for="item4">Text input 3:</label><input type="text" name="item4" id="item4" value=""></input>
+      <label for="item5">Slider input:</label><input type="range" name="item5" id="item5" value="0" min="0" max="100">
+      <label for="item6">Slider input:</label><input type="range" name="item6" id="item6" value="0" min="0" max="100">
+      <hr/>
+      <p>
+        Demo 2-3 value-based widgets. The widgets below the will change if you click <a href="#" id="item4trigger">this link</a>.
+      </p>      
+      <label for="item7">Text input 2:</label><input type="text" name="item7" id="item7" value=""></input>
+      <label for="item8">Flipswitch input:</label>
+      <select id="item8" data-role="flipswitch">
+        <option value="leave">Bye</option>
+        <option value="arrive">Hi</option>
+      </select>
+    </div>
   </div>
   </body>
   </html>
