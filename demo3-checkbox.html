@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="HTML Tidy for Linux/x86 (vers 25 March 2009), see www.w3.org" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>jQuery Mobile Binding: Demo 3 (checkradiobox)</title>
+<link rel="stylesheet" href="themes/jqmbind-demo.min.css" type="text/css" />
+<link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" type="text/css" />
+<link rel="stylesheet" href="themes/jquery.mobile.structure-1.4.5.min.css" type="text/css" />
+<script src="jq/jquery-2.1.3.min.js" type="text/javascript"></script>
+<script src="jq/jquery.mobile-1.4.5.min.js" type="text/javascript"></script>
+<script src="frameworks/observe.js" type="text/javascript"></script>
+<script src="frameworks/jqmbind.js" type="text/javascript"></script>
+<script>
+  var model = {
+    item1: true,
+    item2: 'on'
+  };
+  function toggleItem1() {
+    model.item1 = !model.item1;
+    model.item2 = model.item2 === 'on' ? 'off' : 'on';
+    Platform.performMicrotaskCheckpoint();
+  }
+  $(document).ready(function() {
+    $('#item1trigger').click(toggleItem1);
+    $('#item1').checkboxradio('attach', model, 'item1');
+    $('#item2').checkboxradio('attach', model, 'item2');
+    $('#ritem1').checkboxradio('attach', model, 'item2');
+    $('#ritem2').checkboxradio('attach', model, 'item2');
+    $('#item3').textinput('attach', model, 'item2');
+    $('#ritem3').checkboxradio('attach', model, 'item2');
+    $('#ritem4').checkboxradio('attach', model, 'item2');
+  });
+</script>
+</head>
+<body>
+  <div data-role="page" data-theme="a">
+    <div data-role="header" data-position="inline">
+      <h1>jQuery Mobile Binding: Demo 3 (checkradiobox)</h1>
+    </div>
+
+    <div data-role="content" data-theme="a">
+      <p>This demonstrates binding JQuery Mobile's checkbox and radio box to object properties using Polymer's Observe-js library.</p>
+      <p>
+        Demo 3-0 The checkboxes boxes below the will change if you click <a href="#" id="item1trigger">this link</a>, and be opposite each other, 
+        while the radiobuttons will swap appropriately.
+      </p>
+      <form>
+        <label><input type="checkbox" name="item1" id="item1">Turn lights on as true?</label>
+        <label><input type="checkbox" name="item2" id="item2" value="off"> Are the lights off? </label>
+<label for="item3">Item2 value:</label><input type="text" name="item3" id="item3" value=""></input>
+    <input type="radio" name="radiogroup" id="ritem1" value="on">
+    <label for="ritem1">On</label>
+ 
+    <input type="radio" name="radiogroup" id="ritem2" value="off">
+    <label for="ritem2">Off</label>
+
+    <div class="ui-field-contain">
+    <fieldset data-role="controlgroup" data-type="horizontal">
+    <legend>The lights are:</legend>
+    <input type="radio" name="radiogroup2" id="ritem3" value="on">
+    <label for="ritem3">On</label>
+ 
+    <input type="radio" name="radiogroup2" id="ritem4" value="off">
+    <label for="ritem4">Off</label>
+    </fieldset></div>
+    </form>
+    </div>
+
+    <div data-role="footer" data-position="inline">
+      <h1>&copy; Joseph W Shelby. <a href="LICENSE.txt" target="_blank">MIT License</a></h1>
+    </div>
+
+  </div>
+</body>
+</html>

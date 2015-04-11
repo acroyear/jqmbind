@@ -100,7 +100,9 @@
       var theCB = cb;
       this._attachment = new PathObserver(obj, path);
       var wdf = function(newValue, oldValue) {
-        // console.log(that, "path changed", newValue);
+        if (this.element.val()) {
+          newValue = this.element.val() === newValue || this.element.val() === 'on' && newValue === true;
+        }
         this.element.prop('checked', newValue);
         this.element.checkboxradio("refresh");
         if (theCB) cb(this.element);
