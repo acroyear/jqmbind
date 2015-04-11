@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="generator" content="HTML Tidy for Linux/x86 (vers 25 March 2009), see www.w3.org" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>jQuery Mobile Binding: Demo 0 (DOM and Image src)</title>
+  <link rel="stylesheet" href="themes/jqmbind-demo.min.css" type="text/css" />
+  <link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" type="text/css" />
+  <link rel="stylesheet" href="themes/jquery.mobile.structure-1.4.5.min.css" type="text/css" />
+  <script src="jq/jquery-2.1.3.min.js" type="text/javascript"></script>
+  <script src="jq/jquery.mobile-1.4.5.min.js" type="text/javascript"></script>
+  <script src="frameworks/observe.js" type="text/javascript"></script>
+  <script src="frameworks/jqmbind.js" type="text/javascript"></script>
+  <script>
+  var model = {
+      item1: "apatasaurus"
+  };
+  var options = 'apatasaurus brachiosaurus corynthisaurus dienanichus einiosaurus'.split(" ");
+  var idx = 0;
+  function item1trigger() {
+    idx++;
+    if (idx === options.length) idx = 0;
+    model.item1 = options[idx];
+    Platform.performMicrotaskCheckpoint();
+  }
+
+  $(document).ready(function() {
+    $.each(options, function(key, value) {   
+      $('#item2').append($('<option>', { value : value }).text(value)); 
+    });
+    
+    $('#item1trigger').click(item1trigger);
+    $('#item1').textinput('attach', model, 'item1');
+    $('#item2').selectmenu('attach', model, 'item1');
+  });
+  </script>
+  </head>
+  <body>
+  <div data-role="page" data-theme="a">
+    <div data-role="header" data-position="inline">
+      <h1>JQMBind Demo - DOM and Image</h1>
+    </div>
+
+    <div data-role="content" data-theme="a">
+      <p>This demonstrates binding JQuery Mobile's textview to object properties using Polymer's Observe-js library.</p>
+      <p>
+        Demo 2-0 value-based widgets. The two widgets below the will change if you click <a href="#" id="item1trigger">this link</a>.
+      </p>
+      <label for="item1">Text input 1:</label><input type="text" name="item1" id="item1" value=""></input>
+      <label for="item2" class="select">Shipping method:</label><select name="item2" id="item2"></select>
+  </div>
+  </div>
+  </body>
+  </html>
