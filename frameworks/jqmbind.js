@@ -47,6 +47,47 @@
   widgettypes.forEach(function(w) {
     addAttachmentHash(w);
   });
+
+  // rangeslider has two values, so needs to observers
+  $.widget("mobile.rangeslider", $.mobile.rangeslider, {
+    attach: function(obj, pathMin, pathMax, cb) {
+      // getter
+      if (!obj || !pathMin) return !!this._attachment1;
+      // setter
+      if (this._attachment1) {
+        this._attachment1.close();
+      }
+      if (this._attachment2) {
+        this._attachment2.close();
+      }
+      var theCB = cb;
+      this._attachment1 = new PathObserver(obj, pathMin);
+      this._attachment2 = new PathObserver(obj, pathMax);
+      var wdf1 = function(newValue, oldValue) {
+        $(this.element.find('input')[0]).val(newValue);
+        this.element.rangeslider("refresh");
+        if (theCB) cb(this.element);
+      }.bind(this);
+      var wdf2 = function(newValue, oldValue) {
+        $(this.element.find('input')[1]).val(newValue);
+        this.element.rangeslider("refresh");
+        if (theCB) cb(this.element);
+      }.bind(this);
+      this._attachment1.open(wdf1);
+      this._attachment2.open(wdf2);
+      wdf1(Path.get(pathMin).getValueFrom(obj));
+      wdf2(Path.get(pathMax).getValueFrom(obj));
+      return this;
+    },
+    unattach: function() {
+      this._attachment1.close();
+      delete this._attachment1;
+      this._attachment2.close();
+      delete this._attachment2;
+      return this;
+    }
+  });
+  
   // checkboxradio doesn't use val()
   $.widget("mobile.checkboxradio", $.mobile.checkboxradio, {
     attach: function(obj, path, cb) {

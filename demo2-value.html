@@ -56,6 +56,8 @@
     $('#item5').slider('attach', model, 'item2');
     $('#item6').slider('attach', model, 'item3');
 
+    $('#range-1').rangeslider('attach', model, 'item2', 'item3');
+
     $('#item4trigger').click(item4trigger);
     $('#item7').textinput('attach', model, 'item4');
     $('#item8').flipswitch('attach', model, 'item4');
@@ -70,7 +72,7 @@
     </div>
 
     <div data-role="content" data-theme="a">
-      <p>This demonstrates binding JQuery Mobile's textview to object properties using Polymer's Observe-js library.</p>
+      <p>This demonstrates binding JQuery Mobile's widgets to object properties using Polymer's Observe-js library.</p>
       <p>
         Demo 2-0 value-based widgets. The two widgets below the will change if you click <a href="#" id="item1trigger">this link</a>.
       </p>
@@ -84,6 +86,13 @@
       <label for="item4">Text input 3:</label><input type="text" name="item4" id="item4" value=""></input>
       <label for="item5">Slider input:</label><input type="range" name="item5" id="item5" value="0" min="0" max="100">
       <label for="item6">Slider input:</label><input type="range" name="item6" id="item6" value="0" min="0" max="100">
+
+<div data-role="rangeslider" id="range-1">
+  <label for="range-1a">Rangeslider:</label>
+  <input name="range-1a" id="range-1a" min="0" max="100" value="0" type="range" />
+  <label for="range-1b">Rangeslider:</label>
+  <input name="range-1b" id="range-1b" min="0" max="100" value="100" type="range" />
+</div>
       <hr/>
       <p>
         Demo 2-3 value-based widgets. The widgets below the will change if you click <a href="#" id="item4trigger">this link</a>.
